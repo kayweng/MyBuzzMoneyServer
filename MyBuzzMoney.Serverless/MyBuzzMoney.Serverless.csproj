@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AssemblyName>BuzzCurrency.Serverless.User</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.0.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.2.0" />
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="1.1.2" />
+    <PackageReference Include="AWSSimpleClients" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Amazon.Lambda.Tools" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="AWSSDK.CloudFormation.3.3.9\AWSSDK.CloudFormation.3.3.9.nupkg" />
+    <None Remove="AWSSDK.CloudFormation.3.3.9\lib\MonoTouch10\AWSSDK.CloudFormation.pdb" />
+    <None Remove="AWSSDK.CloudFormation.3.3.9\lib\net35\AWSSDK.CloudFormation.pdb" />
+    <None Remove="AWSSDK.CloudFormation.3.3.9\lib\net45\AWSSDK.CloudFormation.pdb" />
+    <None Remove="AWSSDK.CloudFormation.3.3.9\lib\netstandard1.3\AWSSDK.CloudFormation.pdb" />
+    <None Remove="AWSSDK.CloudFormation.3.3.9\lib\portable-net45+win8+wpa81+wp8\AWSSDK.CloudFormation.pdb" />
+    <None Remove="AWSSDK.CloudFormation.3.3.9\lib\uap\AWSSDK.CloudFormation.pdb" />
+    <None Remove="AWSSDK.IdentityManagement.3.3.5.3\lib\portable-net45+win8+wpa81+wp8\AWSSDK.IdentityManagement.pdb" />
+    <None Remove="AWSSDK.IdentityManagement.3.3.5.3\lib\uap\AWSSDK.IdentityManagement.pdb" />
+    <None Remove="AWSSDK.Lambda.3.3.10\AWSSDK.Lambda.3.3.10.nupkg" />
+    <None Remove="AWSSDK.Lambda.3.3.10\lib\MonoTouch10\AWSSDK.Lambda.pdb" />
+    <None Remove="AWSSDK.Lambda.3.3.10\lib\net35\AWSSDK.Lambda.pdb" />
+    <None Remove="AWSSDK.Lambda.3.3.10\lib\net45\AWSSDK.Lambda.pdb" />
+    <None Remove="AWSSDK.Lambda.3.3.10\lib\netstandard1.3\AWSSDK.Lambda.pdb" />
+    <None Remove="AWSSDK.Lambda.3.3.10\lib\portable-net45+win8+wpa81+wp8\AWSSDK.Lambda.pdb" />
+    <None Remove="AWSSDK.Lambda.3.3.10\lib\uap\AWSSDK.Lambda.pdb" />
+    <None Remove="AWSSDK.S3.3.3.16.2\AWSSDK.S3.3.3.16.2.nupkg" />
+    <None Remove="AWSSDK.S3.3.3.16.2\lib\MonoTouch10\AWSSDK.S3.pdb" />
+    <None Remove="AWSSDK.S3.3.3.16.2\lib\net35\AWSSDK.S3.pdb" />
+    <None Remove="AWSSDK.S3.3.3.16.2\lib\net45\AWSSDK.S3.pdb" />
+    <None Remove="AWSSDK.S3.3.3.16.2\lib\netstandard1.3\AWSSDK.S3.pdb" />
+    <None Remove="AWSSDK.S3.3.3.16.2\lib\portable-net45+win8+wpa81+wp8\AWSSDK.S3.pdb" />
+    <None Remove="AWSSDK.S3.3.3.16.2\lib\uap\AWSSDK.S3.pdb" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\AWSSDK.SecurityToken.3.3.3.3.nupkg" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\lib\MonoTouch10\AWSSDK.SecurityToken.pdb" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\lib\net35\AWSSDK.SecurityToken.pdb" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\lib\net45\AWSSDK.SecurityToken.pdb" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\lib\netstandard1.3\AWSSDK.SecurityToken.pdb" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\lib\portable-net45+win8+wpa81+wp8\AWSSDK.SecurityToken.pdb" />
+    <None Remove="AWSSDK.SecurityToken.3.3.3.3\lib\uap\AWSSDK.SecurityToken.pdb" />
+    <None Remove="Microsoft.NETCore.App.2.0.0\Microsoft.NETCore.App.2.0.0.nupkg" />
+    <None Remove="Microsoft.NETCore.DotNetAppHost.2.0.0\Microsoft.NETCore.DotNetAppHost.2.0.0.nupkg" />
+    <None Remove="Microsoft.NETCore.DotNetHostPolicy.2.0.0\Microsoft.NETCore.DotNetHostPolicy.2.0.0.nupkg" />
+    <None Remove="Microsoft.NETCore.DotNetHostResolver.2.0.0\Microsoft.NETCore.DotNetHostResolver.2.0.0.nupkg" />
+    <None Remove="Microsoft.NETCore.Platforms.2.0.0\Microsoft.NETCore.Platforms.2.0.0.nupkg" />
+    <None Remove="NETStandard.Library.2.0.0\NETStandard.Library.2.0.0.nupkg" />
+    <None Remove="Newtonsoft.Json.9.0.1\Newtonsoft.Json.9.0.1.nupkg" />
+    <None Remove="System.IO.Compression.ZipFile.4.0.1\System.IO.Compression.ZipFile.4.0.1.nupkg" />
+    <None Remove="System.Runtime.Loader.4.0.0\System.Runtime.Loader.4.0.0.nupkg" />
+    <None Remove="YamlDotNet.Signed.4.2.1\YamlDotNet.Signed.4.2.1.nupkg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyBuzzMoney.Library\MyBuzzMoney.Library.csproj" />
+    <ProjectReference Include="..\MyBuzzMoney.Logging\MyBuzzMoney.Logging.csproj" />
+    <ProjectReference Include="..\MyBuzzMoney.Repository\MyBuzzMoney.Repository.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.deps.json
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.runtimeconfig.json
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.runtimeconfig.dev.json
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/MyBuzzMoney.Library.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/MyBuzzMoney.Logging.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/MyBuzzMoney.Repository.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/MyBuzzMoney.Library.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/MyBuzzMoney.Logging.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/bin/Debug/netcoreapp2.0/MyBuzzMoney.Repository.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/obj/Debug/netcoreapp2.0/MyBuzzMoney.Serverless.csprojResolveAssemblyReference.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/obj/Debug/netcoreapp2.0/MyBuzzMoney.Serverless.csproj.CoreCompileInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/obj/Debug/netcoreapp2.0/MyBuzzMoney.Serverless.AssemblyInfoInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/obj/Debug/netcoreapp2.0/MyBuzzMoney.Serverless.AssemblyInfo.cs
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/obj/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Serverless/obj/Debug/netcoreapp2.0/BuzzCurrency.Serverless.User.pdb

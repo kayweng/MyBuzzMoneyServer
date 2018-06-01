@@ -1,0 +1,9 @@
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/bin/Debug/netstandard2.0/netstandard2.0/MyBuzzMoney.Library.deps.json
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/bin/Debug/netstandard2.0/netstandard2.0/MyBuzzMoney.Library.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/bin/Debug/netstandard2.0/netstandard2.0/MyBuzzMoney.Library.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj/Debug/netstandard2.0/MyBuzzMoney.Library.csprojResolveAssemblyReference.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj/Debug/netstandard2.0/MyBuzzMoney.Library.csproj.CoreCompileInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj/Debug/netstandard2.0/MyBuzzMoney.Library.AssemblyInfoInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj/Debug/netstandard2.0/MyBuzzMoney.Library.AssemblyInfo.cs
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj/Debug/netstandard2.0/MyBuzzMoney.Library.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj/Debug/netstandard2.0/MyBuzzMoney.Library.pdb

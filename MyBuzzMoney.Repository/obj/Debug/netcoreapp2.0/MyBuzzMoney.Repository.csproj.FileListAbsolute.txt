@@ -1,0 +1,11 @@
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/obj/Debug/netcoreapp2.0/MyBuzzMoney.Repository.csprojResolveAssemblyReference.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/obj/Debug/netcoreapp2.0/MyBuzzMoney.Repository.csproj.CoreCompileInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/obj/Debug/netcoreapp2.0/MyBuzzMoney.Repository.AssemblyInfoInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/obj/Debug/netcoreapp2.0/MyBuzzMoney.Repository.AssemblyInfo.cs
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/bin/Debug/netcoreapp2.0/MyBuzzMoney.Repository.deps.json
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/bin/Debug/netcoreapp2.0/MyBuzzMoney.Repository.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/bin/Debug/netcoreapp2.0/MyBuzzMoney.Repository.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/bin/Debug/netcoreapp2.0/MyBuzzMoney.Library.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/bin/Debug/netcoreapp2.0/MyBuzzMoney.Library.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/obj/Debug/netcoreapp2.0/MyBuzzMoney.Repository.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Repository/obj/Debug/netcoreapp2.0/MyBuzzMoney.Repository.pdb

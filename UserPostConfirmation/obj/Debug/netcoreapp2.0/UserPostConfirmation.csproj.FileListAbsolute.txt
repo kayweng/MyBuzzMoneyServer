@@ -1,0 +1,13 @@
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/obj/Debug/netcoreapp2.0/UserPostConfirmation.csprojResolveAssemblyReference.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/obj/Debug/netcoreapp2.0/UserPostConfirmation.csproj.CoreCompileInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/obj/Debug/netcoreapp2.0/UserPostConfirmation.AssemblyInfoInputs.cache
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/obj/Debug/netcoreapp2.0/UserPostConfirmation.AssemblyInfo.cs
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.UserPostConfirmation.deps.json
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.UserPostConfirmation.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.UserPostConfirmation.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.Library.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.Logging.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.Logging.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/bin/Debug/netcoreapp2.0/MyBuzzMoney.Library.pdb
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/obj/Debug/netcoreapp2.0/MyBuzzMoney.UserPostConfirmation.dll
+/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/UserPostConfirmation/obj/Debug/netcoreapp2.0/MyBuzzMoney.UserPostConfirmation.pdb

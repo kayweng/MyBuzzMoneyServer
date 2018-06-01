@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserPostConfirmation", "UserPostConfirmation\UserPostConfirmation.csproj", "{727115C2-8FCB-4304-8998-1A878F00DFE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserPostConfirmation.Tests", "UserPostConfirmation.Tests\UserPostConfirmation.Tests.csproj", "{6AC0849A-E975-41EF-93B6-DD79CDFB53B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBuzzMoney.Library", "MyBuzzMoney.Library\MyBuzzMoney.Library.csproj", "{79BE8001-6587-40A1-A03B-FE95150E8E72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBuzzMoney.Logging", "MyBuzzMoney.Logging\MyBuzzMoney.Logging.csproj", "{D41A9E28-7E02-46E8-AF95-381C29A66191}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBuzzMoney.Repository", "MyBuzzMoney.Repository\MyBuzzMoney.Repository.csproj", "{3BCEF73B-2765-4BE6-8BCA-D0A8DBD79AE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBuzzMoney.Serverless", "MyBuzzMoney.Serverless\MyBuzzMoney.Serverless.csproj", "{690DBD9C-7F09-4227-B5DB-4CD20EDFAC45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{727115C2-8FCB-4304-8998-1A878F00DFE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{727115C2-8FCB-4304-8998-1A878F00DFE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{727115C2-8FCB-4304-8998-1A878F00DFE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{727115C2-8FCB-4304-8998-1A878F00DFE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC0849A-E975-41EF-93B6-DD79CDFB53B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC0849A-E975-41EF-93B6-DD79CDFB53B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC0849A-E975-41EF-93B6-DD79CDFB53B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC0849A-E975-41EF-93B6-DD79CDFB53B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79BE8001-6587-40A1-A03B-FE95150E8E72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79BE8001-6587-40A1-A03B-FE95150E8E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79BE8001-6587-40A1-A03B-FE95150E8E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79BE8001-6587-40A1-A03B-FE95150E8E72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41A9E28-7E02-46E8-AF95-381C29A66191}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41A9E28-7E02-46E8-AF95-381C29A66191}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41A9E28-7E02-46E8-AF95-381C29A66191}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41A9E28-7E02-46E8-AF95-381C29A66191}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BCEF73B-2765-4BE6-8BCA-D0A8DBD79AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BCEF73B-2765-4BE6-8BCA-D0A8DBD79AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BCEF73B-2765-4BE6-8BCA-D0A8DBD79AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BCEF73B-2765-4BE6-8BCA-D0A8DBD79AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690DBD9C-7F09-4227-B5DB-4CD20EDFAC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690DBD9C-7F09-4227-B5DB-4CD20EDFAC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690DBD9C-7F09-4227-B5DB-4CD20EDFAC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690DBD9C-7F09-4227-B5DB-4CD20EDFAC45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF2DAF55-3F3C-4476-80B7-230996D3F130}
+	EndGlobalSection
+EndGlobal

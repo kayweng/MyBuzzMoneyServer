@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>MyBuzzMoney.UserPostConfirmation</AssemblyName>
+    <RootNamespace>MyBuzzMoney.UserPostConfirmation</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.Core" Version="1.0.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.1.0" />
+    <PackageReference Include="AWSSDK.Core" Version="3.3.21.16" />
+    <PackageReference Include="AWSSimpleClients" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Amazon.Lambda.Tools" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyBuzzMoney.Logging\MyBuzzMoney.Logging.csproj" />
+    <ProjectReference Include="..\MyBuzzMoney.Library\MyBuzzMoney.Library.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{6AC0849A-E975-41EF-93B6-DD79CDFB53B7}|Default">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.UserPostConfirmation.Tests PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <DisabledProjects>
+    <String>BuzzCurrency.Repository/MyBuzzMoney.Repository.csproj</String>
+    <String>BuzzCurrency.Logging/MyBuzzMoney.Logging.csproj</String>
+    <String>BuzzCurrency.Library/MyBuzzMoney.Library.csproj</String>
+    <String>UserServerless/MyBuzzMoney.Serverless.csproj</String>
+  </DisabledProjects>
+</Properties>

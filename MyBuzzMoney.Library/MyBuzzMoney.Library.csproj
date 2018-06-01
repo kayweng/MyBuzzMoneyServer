@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>MyBuzzMoney.Library</RootNamespace>
+    <AssemblyName>MyBuzzMoney.Library</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\MyBuzzMoneyServer\MyBuzzMoneyServer\MyBuzzMoney.Library\bin\Debug\netstandard2.0</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\..\MyBuzzMoneyServer\MyBuzzMoneyServer\MyBuzzMoney.Library\bin\Release\netstandard2.0</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+</Project>
