@@ -1,0 +1,16 @@
+
+*.config
+*.cache
+*.txt
+*.cache
+.vs/MyBuzzMoneyServer/v15/.suo
+*.dll
+*.targets
+*.json
+*.ide
+*.pdb
+*.cache
+*.lock
+*.nuspec
+*.nupkg
+

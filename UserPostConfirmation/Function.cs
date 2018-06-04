@@ -66,7 +66,7 @@ namespace MyBuzzMoney.UserPostConfirmation
                         ["EmailVerified"] = new AttributeValue() { BOOL = attributes.CognitoUser_Status == "CONFIRMED" ? true : false },
                         ["FirstName"] = new AttributeValue() { S = attributes.Name.Split(' ')[0] },
                         ["LastName"] = new AttributeValue() { S = attributes.Name.Split(' ')[1] },
-                        ["Mobile"] = new AttributeValue() { S = attributes.Phone_Number },
+                        ["Mobile"] = new AttributeValue() { S = attributes.Phone_Number == null ? EMPTY_STRING : attributes.Phone_Number },
                         ["MobileVerified"] = new AttributeValue() { BOOL = attributes.Phone_Number_Verified == "true" ? true : false },
                         ["Birthdate"] = new AttributeValue() { S = attributes.Birthdate.ToString() },
                         ["Gender"] = new AttributeValue() { S = EMPTY_STRING },

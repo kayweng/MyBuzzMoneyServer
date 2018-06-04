@@ -7,7 +7,7 @@
 	 "CognitoUserPoolArn" : {
 	     "Type" : "String",
 		 "Description": "Cognito User Pool ARN",
-		 "Default": "arn:aws:cognito-idp:ap-southeast-1:678822529170:userpool/ap-southeast-1_xNdr3g62r"
+		 "Default": "arn:aws:cognito-idp:ap-southeast-1:678822529170:userpool/ap-southeast-1_tuhbe4Nyz"
 	 },
 	"UserTableName" : {
 		"Type" : "String",
@@ -37,14 +37,14 @@
 		"MinLength":  0
 	},
 	"Region" : {
-		"Type": "String",
+		"Type": "String", 
 		"Description" : "AWS region",
 		"Default" : "ap-southeast-1"
 	},
 	"UserImageBucketName": {
 		"Type": "String",
 		"Description" : "UserProfile Image Bucket Name",
-		"Default" : "userimage.dev.mybuzzmoney.com"
+		"Default" : "userimage.mybuzzmoney.com"
 	}
   },
 
@@ -53,7 +53,7 @@
 	"MyBuzzMoneyRestApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
-			"Name" : "MyBuzzMoneyStack",
+			"Name" : "MyBuzzMoney-Serverless",
             "Body": {
                 "info": {
                     "version": "1.0",
@@ -263,7 +263,7 @@
 	},
 
 	"Deployment" : {
-		"DependsOn" : "UserGetMethod",
+		"DependsOn" : "UserImageOptionMethod",
 	    "Type" : "AWS::ApiGateway::Deployment",
 	    "Properties" : {
 	        "RestApiId" : { "Ref": "MyBuzzMoneyRestApi" },
@@ -309,7 +309,7 @@
 	"GetUserAsync" : {
 		"Type" : "AWS::Serverless::Function",
 		"Properties": {
-			"Handler": "MyBuzzMoney.Serverless.User::MyBuzzMoney.Serverless.UserFunctions::GetUserAsync",
+			"Handler": "MyBuzzMoney.Serverless::MyBuzzMoney.Serverless.UserFunctions::GetUserAsync",
 			"Runtime": "dotnetcore2.0",
 			"CodeUri": "",
 			"MemorySize": 128,
@@ -341,7 +341,7 @@
 	"PostUserAsync" : {
 		"Type" : "AWS::Serverless::Function",
 		"Properties": {
-			"Handler": "MyBuzzMoney.Serverless.User::MyBuzzMoney.Serverless.UserFunctions::PostUserAsync",
+			"Handler": "MyBuzzMoney.Serverless::MyBuzzMoney.Serverless.UserFunctions::PostUserAsync",
 			"Runtime": "dotnetcore2.0",
 			"CodeUri": "",
 			"MemorySize": 128,
@@ -373,7 +373,7 @@
 	"PostUserImage": {
 		"Type" : "AWS::Serverless::Function",
 		"Properties": {
-			"Handler": "MyBuzzMoney.Serverless.User::MyBuzzMoney.Serverless.UserFunctions::UploadProfileImage",
+			"Handler": "MyBuzzMoney.Serverless::MyBuzzMoney.Serverless.UserFunctions::UploadProfileImage",
 			"Runtime": "dotnetcore2.0",
 			"CodeUri": "",
 			"MemorySize": 128,

@@ -13,9 +13,9 @@
     "function-runtime" : "dotnetcore2.0",
     "function-memory-size" : 128,
     "function-timeout"     : 30,
-    "function-handler"     : "BuzzCurrency.UserPostConfirmation::BuzzCurrency.UserPostConfirmation.Function::FunctionHandler",
-    "function-name"        : "BuzzCurrency-PostUserConfirmation",
-    "function-role"        : "arn:aws:iam::678822529170:role/lambda_basic_execution",
+    "function-handler"     : "MyBuzzMoney.UserPostConfirmation::MyBuzzMoney.UserPostConfirmation.Function::FunctionHandler",
+    "function-name"        : "MyBuzzMoney-PostUserConfirmation",
+    "function-role"        : "arn:aws:iam::678822529170:role/MyBuzzMoney_Lambda_Execution_Role",
     "tracing-mode"         : "PassThrough",
-    "environment-variables" : "\"tableName\"=\"BuzzCurrency-Users\";\"accessKey\"=\"AKIAJVGWPWF47C2FCD4A\";\"secretKey\"=\"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\";\"region\"=\"ap-southeast-1\""
+    "environment-variables" : "\"tableName\"=\"MyBuzzMoney-Users\";\"accessKey\"=\"AKIAJVGWPWF47C2FCD4A\";\"secretKey\"=\"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\";\"region\"=\"ap-southeast-1\""
 }

@@ -17,7 +17,7 @@ namespace MyBuzzMoney.Repository
     public class UserRepository : BaseRepository, IUserRepository
     {
         IDynamoDBContext DDBContext { get; set; }
-        string userTableName { get; set; }
+        string UserTableName { get; set; }
 
         public UserRepository(string tableName)
         {
@@ -27,7 +27,7 @@ namespace MyBuzzMoney.Repository
 
             DDBContext = new DynamoDBContext(new AmazonDynamoDBClient(), config);
 
-            userTableName = tableName;
+            UserTableName = tableName;
         }
 
         public async Task<UserProfile> RetrieveUser(string username)
@@ -35,7 +35,7 @@ namespace MyBuzzMoney.Repository
             try
             {
                 var user = await DDBContext.LoadAsync<UserProfile>(username);
-                user.UserTypeDescription = EnumHelper.GetDescription<UserType>(user.UserType);
+                user.UserTypeDescription = EnumHelper.GetDescription(user.UserType);
 
                 return user;
             }
@@ -51,7 +51,7 @@ namespace MyBuzzMoney.Repository
             {
                 var request = new UpdateItemRequest
                 {
-                    TableName = userTableName,
+                    TableName = UserTableName,
                     Key = new Dictionary<string, AttributeValue>() 
                     {
                         { "Email", new AttributeValue { S = userProfile.Email } } 
