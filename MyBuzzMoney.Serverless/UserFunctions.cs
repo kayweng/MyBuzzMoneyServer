@@ -102,6 +102,8 @@ namespace MyBuzzMoney.Serverless
 
             try
             {
+                Console.WriteLine("Posting ...");
+
                 if (request.PathParameters.ContainsKey("username"))
                 {
                     username = request.PathParameters["username"].ToString();
@@ -157,11 +159,7 @@ namespace MyBuzzMoney.Serverless
 
             try
             {
-                byte[] data = Convert.FromBase64String(request.Body);
-
-                string decodedString = Encoding.UTF8.GetString(data);
-
-                Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(decodedString);
+                Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(request.Body);
 
                 string dataString = dict["data"].ToString();
 
