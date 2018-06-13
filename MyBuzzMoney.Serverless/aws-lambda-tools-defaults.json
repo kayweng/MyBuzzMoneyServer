@@ -12,7 +12,7 @@
     "framework"     : "netcoreapp2.0",
     "s3-prefix"     : "MyBuzzMoneyServerless",
     "template"      : "serverless.template",
-    "template-parameters" : "\"CognitoUserPoolArn\"=\"arn:aws:cognito-idp:ap-southeast-1:678822529170:userpool/ap-southeast-1_tuhbe4Nyz\";\"UserTableName\"=\"MyBuzzMoney-Users\";\"ReadCapacity\"=\"1\";\"WriteCapacity\"=\"1\";\"AccessKey\"=\"AKIAJVGWPWF47C2FCD4A\";\"SecretKey\"=\"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\";\"Region\"=\"ap-southeast-1\";\"UserImageBucketName\"=\"userimage.mybuzzmoney.com\"",
+    "template-parameters" : "\"CognitoUserPoolArn\"=\"arn:aws:cognito-idp:ap-southeast-1:678822529170:userpool/ap-southeast-1_tuhbe4Nyz\";\"UserTableName\"=\"MyBuzzMoney-Users\";\"ReadCapacity\"=\"1\";\"WriteCapacity\"=\"1\";\"AccessKey\"=\"\";\"SecretKey\"=\"\";\"Region\"=\"ap-southeast-1\";\"UserImageBucketName\"=\"userimage.mybuzzmoney.com\"",
     "s3-bucket"           : "stacks.mybuzzmoney.com",
     "stack-name"          : "MyBuzzMoney-Serverless",
     "stack-wait"          : false
