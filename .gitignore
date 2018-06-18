@@ -13,4 +13,12 @@
 *.lock
 *.nuspec
 *.nupkg
+*.suo
+*.user
+_ReSharper.*
+bin/
+obj/
+Debug/
+Release/
+packages
 

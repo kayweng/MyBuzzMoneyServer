@@ -215,29 +215,31 @@
     ]
   },
   "packageFolders": {
-    "/Users/kayweng/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\kaywengf.rven\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/MyBuzzMoney.Library.csproj",
+      "projectUniqueName": "D:\\Projects\\MyBuzzMoneyServer\\MyBuzzMoney.Library\\MyBuzzMoney.Library.csproj",
       "projectName": "MyBuzzMoney.Library",
-      "projectPath": "/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/MyBuzzMoney.Library.csproj",
-      "packagesPath": "/Users/kayweng/.nuget/packages/",
-      "outputPath": "/Users/kayweng/Documents/MyBuzzMoneyServer/MyBuzzMoneyServer/MyBuzzMoney.Library/obj",
+      "projectPath": "D:\\Projects\\MyBuzzMoneyServer\\MyBuzzMoney.Library\\MyBuzzMoney.Library.csproj",
+      "packagesPath": "C:\\Users\\kaywengf.rven\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\MyBuzzMoneyServer\\MyBuzzMoney.Library\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/kayweng/.config/NuGet/NuGet.Config"
+        "C:\\Users\\kaywengf.rven\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
       ],
       "sources": {
-        "/Users/kayweng/Documents/Nuget": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "D:\\Projects\\BuzzCurrencyAWS\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -257,12 +259,12 @@
           "NETStandard.Library": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "2.0.1",
+            "version": "[2.0.1, )",
             "autoReferenced": true
           },
           "Newtonsoft.Json": {
             "target": "Package",
-            "version": "11.0.2"
+            "version": "[11.0.2, )"
           }
         },
         "imports": [
