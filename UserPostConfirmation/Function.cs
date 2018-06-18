@@ -71,6 +71,7 @@ namespace MyBuzzMoney.UserPostConfirmation
                         ["Birthdate"] = new AttributeValue() { S = attributes.Birthdate.ToString() },
                         ["Gender"] = new AttributeValue() { S = EMPTY_STRING },
                         ["Address"] = new AttributeValue() { S = EMPTY_STRING },
+                        ["AddressVerified"] = new AttributeValue() { BOOL = false },
                         ["Country"] = new AttributeValue() { S = EMPTY_STRING },
                         ["UserType"] = new AttributeValue() { S = UserType.Confirmed.ToString() },
                         ["ImageUrl"] = new AttributeValue() { S = EMPTY_STRING },

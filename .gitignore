@@ -3,7 +3,6 @@
 *.cache
 *.txt
 *.cache
-.vs/MyBuzzMoneyServer/v15/.suo
 *.dll
 *.targets
 *.json
@@ -16,9 +15,14 @@
 *.suo
 *.user
 _ReSharper.*
+.vs/MyBuzzMoneyServer/v15/.suo
+.vs/MyBuzzMoneyServer/v15/Server/sqlite3/*.*
+MyBuzzMoneyServer/obj/
 bin/
 obj/
 Debug/
 Release/
 packages
 
+*.cache
+MyBuzzMoney.Library/obj/project.assets.json
