@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,34 +15,26 @@ using System.Text;
 using MyBuzzMoney.Library.Helpers;
 using MyBuzzMoney.Library.Models;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
-
 namespace MyBuzzMoney.Serverless
 {
-    public class UserFunctions
+    public class SettingFunctions
     {
         #region Properties
         public string _tableName { get; set; }
         private RegionEndpoint _region { get; set; }
         private string _accessKey { get; set; }
         private string _secretKey { get; set; }
-        private string _imageBucketName { get; set; }
 
         private Dictionary<string, string> _responseHeader { get; set; }
         #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Default constructor that Lambda will invoke.
-        /// </summary>
-        public UserFunctions()
+        #region Constuctor
+        public SettingFunctions()
         {
             _region = RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("region"));
             _accessKey = Environment.GetEnvironmentVariable("accessKey");
             _secretKey = Environment.GetEnvironmentVariable("secretKey");
             _tableName = Environment.GetEnvironmentVariable("tableName");
-            _imageBucketName = Environment.GetEnvironmentVariable("userImageBucket");
             _responseHeader = new Dictionary<string, string>() {
                 { "Content-Type", "application/json" },
                 { "Access-Control-Allow-Origin", "*" }
@@ -52,14 +44,8 @@ namespace MyBuzzMoney.Serverless
         }
         #endregion
 
-        #region API Methods
-        /// <summary>
-        /// Retrieve buzz currency user async
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public async Task<APIGatewayProxyResponse> GetUserAsync(APIGatewayProxyRequest request, ILambdaContext context)
+        #region API Method
+        public async Task<APIGatewayProxyResponse> GetUserSettingAsync(APIGatewayProxyRequest request, ILambdaContext context)
         {
             string username = null;
 
@@ -70,15 +56,15 @@ namespace MyBuzzMoney.Serverless
 
             if (!string.IsNullOrEmpty(username))
             {
-                var repo = new UserRepository(_tableName);
-                var user = await repo.RetrieveUser(username);
+                var repo = new SettingRepository(_tableName);
+                var setting = await repo.RetrieveUserSetting(username);
 
-                if (user != null)
+                if (setting != null)
                 {
                     return new APIGatewayProxyResponse
                     {
                         StatusCode = (int)HttpStatusCode.OK,
-                        Body = JsonConvert.SerializeObject(user),
+                        Body = JsonConvert.SerializeObject(setting),
                         Headers = _responseHeader
                     };
                 }
@@ -90,13 +76,7 @@ namespace MyBuzzMoney.Serverless
             };
         }
 
-        /// <summary>
-        /// Save user profile record in dynamo db.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public async Task<APIGatewayProxyResponse> PostUserAsync(APIGatewayProxyRequest request, ILambdaContext context)
+        public async Task<APIGatewayProxyResponse> PostUserPreferencesAsync(APIGatewayProxyRequest request, ILambdaContext context)
         {
             string username = null;
 
@@ -109,19 +89,17 @@ namespace MyBuzzMoney.Serverless
 
                 if (!string.IsNullOrEmpty(username))
                 {
-                    var repo = new UserRepository(_tableName);
-                    var user = JsonConvert.DeserializeObject<UserProfile>(request.Body);
+                    var repo = new SettingRepository(_tableName);
+                    var setting = JsonConvert.DeserializeObject<UserSetting>(request.Body);
 
-                    bool saved = await repo.UpdateUser(user);
+                    bool saved = await repo.UpdatePreferences(setting);
 
                     if (saved)
                     {
-                        var updatedUser = await repo.RetrieveUser(user.Email);
-
                         return new APIGatewayProxyResponse()
                         {
                             StatusCode = (int)HttpStatusCode.OK,
-                            Body = JsonConvert.SerializeObject(updatedUser),
+                            Body = JsonConvert.SerializeObject(setting),
                             Headers = _responseHeader
                         };
                     }
@@ -144,50 +122,33 @@ namespace MyBuzzMoney.Serverless
             };
         }
 
-        /// <summary>
-        /// Post upload user profile image to s3 bucket and return an image link for access.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public APIGatewayProxyResponse UploadProfileImage(APIGatewayProxyRequest request, ILambdaContext context)
+        public async Task<APIGatewayProxyResponse> PostUserLinkedAccountAsync(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            TransferUtility utility = new TransferUtility(AWS.S3);
             string username = null;
 
             try
             {
-                Dictionary<string, string> dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(request.Body);
-
-                string dataString = dict["data"].ToString();
-
-                if (request.PathParameters.ContainsKey("username") 
-                    && !string.IsNullOrEmpty(dataString)
-                    && dataString.Split(',').Length == 2)
+                if (request.PathParameters.ContainsKey("username"))
                 {
                     username = request.PathParameters["username"].ToString();
+                }
 
-                    Byte[] imageBytes = Convert.FromBase64String(dataString.Split(',')[1]);
+                if (!string.IsNullOrEmpty(username))
+                {
+                    var repo = new SettingRepository(_tableName);
+                    var setting = JsonConvert.DeserializeObject<UserSetting>(request.Body);
 
-                    var file = new TransferUtilityUploadRequest()
+                    bool saved = await repo.UpdateLinkedAccount(setting);
+
+                    if (saved)
                     {
-                        InputStream = new MemoryStream(imageBytes),
-                        BucketName = _imageBucketName,
-                        Key = username + ".jpg",
-                        ContentType = "image/jpeg",
-                        CannedACL = Amazon.S3.S3CannedACL.AuthenticatedRead
-                    };
-
-                    utility.Upload(file);
-
-                    var response = new APIGatewayProxyResponse
-                    {
-                        StatusCode = (int)HttpStatusCode.OK,
-                        Body = file.FilePath,
-                        Headers = _responseHeader
-                    };
-
-                    return response;
+                        return new APIGatewayProxyResponse()
+                        {
+                            StatusCode = (int)HttpStatusCode.OK,
+                            Body = JsonConvert.SerializeObject(setting),
+                            Headers = _responseHeader
+                        };
+                    }
                 }
             }
             catch (Exception ex)

@@ -17,5 +17,5 @@
     "function-name"        : "MyBuzzMoney-PostUserConfirmation",
     "function-role"        : "arn:aws:iam::678822529170:role/MyBuzzMoney_Lambda_Execution_Role",
     "tracing-mode"         : "PassThrough",
-    "environment-variables" : "\"tableName\"=\"MyBuzzMoney-Users\";\"accessKey\"=\"AKIAJVGWPWF47C2FCD4A\";\"secretKey\"=\"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\";\"region\"=\"ap-southeast-1\""
+    "environment-variables" : "\"userTable\"=\"MyBuzzMoney-Users\";\"settingTable\"=\"MyBuzzMoney-Setting\";\"accessKey\"=\"\";\"secretKey\"=\"\";\"region\"=\"ap-southeast-1\""
 }

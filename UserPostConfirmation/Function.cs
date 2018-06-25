@@ -6,6 +6,7 @@ using Amazon.DynamoDBv2.Model;
 using Amazon.Lambda.Core;
 using AWSSimpleClients.Clients;
 using MyBuzzMoney.Library.Enums;
+using MyBuzzMoney.Library.Models;
 using MyBuzzMoney.Logging;
 using Newtonsoft.Json;
 
@@ -19,7 +20,8 @@ namespace MyBuzzMoney.UserPostConfirmation
         #region Properties
         const string ConfirmSignUp = "PostConfirmation_ConfirmSignUp";
         const string EMPTY_STRING = "-";
-        private string _tableName {get; set; }
+        private string _userTableName {get; set; }
+        private string _settingTableName { get; set; }
 
         private RegionEndpoint _region { get; set; }
         private string _accessKey { get; set; }
@@ -33,7 +35,8 @@ namespace MyBuzzMoney.UserPostConfirmation
             _region = RegionEndpoint.GetBySystemName(Environment.GetEnvironmentVariable("region"));
             _accessKey = Environment.GetEnvironmentVariable("accessKey");
             _secretKey = Environment.GetEnvironmentVariable("secretKey");
-            _tableName = Environment.GetEnvironmentVariable("tableName");
+            _userTableName = Environment.GetEnvironmentVariable("userTable");
+            _settingTableName = Environment.GetEnvironmentVariable("settingTable");
         }
 
         public Function(RegionEndpoint region, string accessKey, string secretKey)
@@ -57,51 +60,99 @@ namespace MyBuzzMoney.UserPostConfirmation
 
             if (model.TriggerSource == ConfirmSignUp)
             {
-                try
-                {
-                    UserAttributes attributes = model.Request.UserAttributes;
-                    Dictionary<string, AttributeValue> userAttributes = new Dictionary<string, AttributeValue>
-                    {
-                        ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
-                        ["EmailVerified"] = new AttributeValue() { BOOL = attributes.CognitoUser_Status == "CONFIRMED" ? true : false },
-                        ["FirstName"] = new AttributeValue() { S = attributes.Name.Split(' ')[0] },
-                        ["LastName"] = new AttributeValue() { S = attributes.Name.Split(' ')[1] },
-                        ["Mobile"] = new AttributeValue() { S = attributes.Phone_Number == null ? EMPTY_STRING : attributes.Phone_Number },
-                        ["MobileVerified"] = new AttributeValue() { BOOL = attributes.Phone_Number_Verified == "true" ? true : false },
-                        ["Birthdate"] = new AttributeValue() { S = attributes.Birthdate.ToString() },
-                        ["Gender"] = new AttributeValue() { S = EMPTY_STRING },
-                        ["Address"] = new AttributeValue() { S = EMPTY_STRING },
-                        ["AddressVerified"] = new AttributeValue() { BOOL = false },
-                        ["Country"] = new AttributeValue() { S = EMPTY_STRING },
-                        ["UserType"] = new AttributeValue() { S = UserType.Confirmed.ToString() },
-                        ["ImageUrl"] = new AttributeValue() { S = EMPTY_STRING },
-                        ["Active"] = new AttributeValue() { BOOL = true },
-                        ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
-                        ["ModifiedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() }
-                    };
+                CreateUserProfile(model);
 
-                    var response = AWS.DynamoDB.PutItemAsync(new PutItemRequest()
-                    {
-                        TableName = _tableName,
-                        Item = userAttributes
-                    }).GetAwaiter().GetResult();
-
-                    if (response.HttpStatusCode != System.Net.HttpStatusCode.OK && response.HttpStatusCode != System.Net.HttpStatusCode.Accepted)
-                    {
-                        throw new Exception(string.Format("Failed to create a confirmed user - {0}", userAttributes["Email"].S.ToString()));
-                    }
-                }
-                catch (AmazonDynamoDBException exception)
-                {
-                    Logger.Instance.LogException(exception);
-                }
-                catch (Exception exception)
-                {
-                    Logger.Instance.LogException(exception);
-                }
+                CreateUserSetting(model);
             }
 
             return model;
+        }
+
+        private void CreateUserProfile(CognitoContext model)
+        {
+            try
+            {
+                UserAttributes attributes = model.Request.UserAttributes;
+                Dictionary<string, AttributeValue> userAttributes = new Dictionary<string, AttributeValue>
+                {
+                    ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
+                    ["EmailVerified"] = new AttributeValue() { BOOL = attributes.CognitoUser_Status == "CONFIRMED" ? true : false },
+                    ["FirstName"] = new AttributeValue() { S = attributes.Name.Split(' ')[0] },
+                    ["LastName"] = new AttributeValue() { S = attributes.Name.Split(' ')[1] },
+                    ["Mobile"] = new AttributeValue() { S = attributes.Phone_Number == null ? EMPTY_STRING : attributes.Phone_Number },
+                    ["MobileVerified"] = new AttributeValue() { BOOL = attributes.Phone_Number_Verified == "true" ? true : false },
+                    ["Birthdate"] = new AttributeValue() { S = attributes.Birthdate.ToString() },
+                    ["Gender"] = new AttributeValue() { S = EMPTY_STRING },
+                    ["Address"] = new AttributeValue() { S = EMPTY_STRING },
+                    ["AddressVerified"] = new AttributeValue() { BOOL = false },
+                    ["Country"] = new AttributeValue() { S = EMPTY_STRING },
+                    ["UserType"] = new AttributeValue() { S = UserType.Confirmed.ToString() },
+                    ["ImageUrl"] = new AttributeValue() { S = EMPTY_STRING },
+                    ["Active"] = new AttributeValue() { BOOL = true },
+                    ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
+                    ["ModifiedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() }
+                };
+
+                var response = AWS.DynamoDB.PutItemAsync(new PutItemRequest()
+                {
+                    TableName = _userTableName,
+                    Item = userAttributes
+                }).GetAwaiter().GetResult();
+
+                if (response.HttpStatusCode != System.Net.HttpStatusCode.OK && response.HttpStatusCode != System.Net.HttpStatusCode.Accepted)
+                {
+                    throw new Exception(string.Format("Failed to create a confirmed user - {0}", userAttributes["Email"].S.ToString()));
+                }
+            }
+            catch (AmazonDynamoDBException exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+            catch (Exception exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+        }
+
+        private void CreateUserSetting(CognitoContext model)
+        {
+            try
+            {
+                Preferences preferences = new Preferences();
+                List<LinkedAccount> linkedAccount = new List<LinkedAccount>();
+                Notifications notifications = new Notifications();
+
+                UserAttributes attributes = model.Request.UserAttributes;
+                Dictionary<string, AttributeValue> settingAttributes = new Dictionary<string, AttributeValue>
+                {
+                    ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
+                    ["Preferences"] = new AttributeValue() { S = JsonConvert.SerializeObject(preferences) },
+                    ["LinkedAccounts"] = new AttributeValue() { S = JsonConvert.SerializeObject(linkedAccount) },
+                    ["Verifications"] = new AttributeValue() { S = JsonConvert.SerializeObject(notifications) },
+                    ["Active"] = new AttributeValue() { BOOL = true },
+                    ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
+                    ["ModifiedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() }
+                };
+
+                var response = AWS.DynamoDB.PutItemAsync(new PutItemRequest()
+                {
+                    TableName = _settingTableName,
+                    Item = settingAttributes
+                }).GetAwaiter().GetResult();
+
+                if (response.HttpStatusCode != System.Net.HttpStatusCode.OK && response.HttpStatusCode != System.Net.HttpStatusCode.Accepted)
+                {
+                    throw new Exception(string.Format("Failed to create an user setting - {0}", settingAttributes["Email"].S.ToString()));
+                }
+            }
+            catch (AmazonDynamoDBException exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+            catch (Exception exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
         }
         #endregion
     }
