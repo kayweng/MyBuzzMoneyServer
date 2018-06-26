@@ -8,13 +8,13 @@ namespace MyBuzzMoney.Library.Models
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("Preferences")]
-        public Preferences Preferences { get; set; }
+        [JsonProperty("preferences")]
+        public string Preferences { get; set; }
 
-        [JsonProperty("LinkedAccounts")]
+        [JsonProperty("linkedAccounts")]
         public string LinkedAccounts { get; set; }
 
-        [JsonProperty("Verifications")]
+        [JsonProperty("verifications")]
         public string Verifications { get; set; }
 
         [JsonProperty("active")]
