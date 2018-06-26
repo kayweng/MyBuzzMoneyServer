@@ -17,6 +17,9 @@ namespace MyBuzzMoney.Library.Models
         [JsonProperty("swiftCode")]
         public string SwiftCode { get; set; }
 
+        [JsonProperty("verified")]
+        public string Verified { get; set; }
+
         [JsonProperty("createdOn")]
         public string CreatedOn { get; set; }
     }

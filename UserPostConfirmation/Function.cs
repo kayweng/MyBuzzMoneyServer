@@ -76,15 +76,12 @@ namespace MyBuzzMoney.UserPostConfirmation
                 Dictionary<string, AttributeValue> userAttributes = new Dictionary<string, AttributeValue>
                 {
                     ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
-                    ["EmailVerified"] = new AttributeValue() { BOOL = attributes.CognitoUser_Status == "CONFIRMED" ? true : false },
                     ["FirstName"] = new AttributeValue() { S = attributes.Name.Split(' ')[0] },
                     ["LastName"] = new AttributeValue() { S = attributes.Name.Split(' ')[1] },
                     ["Mobile"] = new AttributeValue() { S = attributes.Phone_Number == null ? EMPTY_STRING : attributes.Phone_Number },
-                    ["MobileVerified"] = new AttributeValue() { BOOL = attributes.Phone_Number_Verified == "true" ? true : false },
                     ["Birthdate"] = new AttributeValue() { S = attributes.Birthdate.ToString() },
                     ["Gender"] = new AttributeValue() { S = EMPTY_STRING },
                     ["Address"] = new AttributeValue() { S = EMPTY_STRING },
-                    ["AddressVerified"] = new AttributeValue() { BOOL = false },
                     ["Country"] = new AttributeValue() { S = EMPTY_STRING },
                     ["UserType"] = new AttributeValue() { S = UserType.Confirmed.ToString() },
                     ["ImageUrl"] = new AttributeValue() { S = EMPTY_STRING },
@@ -118,17 +115,41 @@ namespace MyBuzzMoney.UserPostConfirmation
         {
             try
             {
-                Preferences preferences = new Preferences();
-                List<LinkedAccount> linkedAccount = new List<LinkedAccount>();
-                Notifications notifications = new Notifications();
-
                 UserAttributes attributes = model.Request.UserAttributes;
+
+                Preferences preferences = new Preferences
+                {
+                    LocalCurrency = "-",
+                    Location = new Location()
+                    {
+                        Country = "-",
+                        State = "-",
+                        City = "-"
+                    },
+                    Notifications = new Notifications()
+                    {
+                        Expired = false,
+                        Accepted = true,
+                        Denied = false
+                    }
+                };
+
+                List<LinkedAccount> linkedAccount = new List<LinkedAccount>();
+                Verifications verifications = new Verifications()
+                {
+                    EmailVerified = attributes.CognitoUser_Status == "CONFIRMED",
+                    AddressVerified = false,
+                    IdentityVerified = false,
+                    MobileVerified = attributes.Phone_Number_Verified == "true",
+                };
+
+                
                 Dictionary<string, AttributeValue> settingAttributes = new Dictionary<string, AttributeValue>
                 {
                     ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
                     ["Preferences"] = new AttributeValue() { S = JsonConvert.SerializeObject(preferences) },
                     ["LinkedAccounts"] = new AttributeValue() { S = JsonConvert.SerializeObject(linkedAccount) },
-                    ["Verifications"] = new AttributeValue() { S = JsonConvert.SerializeObject(notifications) },
+                    ["Verifications"] = new AttributeValue() { S = JsonConvert.SerializeObject(verifications) },
                     ["Active"] = new AttributeValue() { BOOL = true },
                     ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
                     ["ModifiedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() }
