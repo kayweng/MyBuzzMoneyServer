@@ -8,7 +8,5 @@ namespace MyBuzzMoney.Repository.Interfaces
         Task<UserSetting> RetrieveUserSetting(string username);
 
         Task<bool> UpdatePreferences(UserSetting userSetting);
-
-        Task<bool> UpdateLinkedAccount(UserSetting userSetting);
     }
 }

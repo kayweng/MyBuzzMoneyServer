@@ -170,26 +170,7 @@
 	        "RestApiId" : { "Ref": "MyBuzzMoneyRestApi" }
 	    }
 	},
-
-	"LinkedAccountsResource" : {
-	    "Type" : "AWS::ApiGateway::Resource",
-	    "Properties" : {
-	        "ParentId" : { "Ref": "SettingResource" },
-	        "PathPart" : "linked-accounts",
-	        "RestApiId" : { "Ref": "MyBuzzMoneyRestApi" }
-	    }
-	},
-
-	"UserLinkedAccountsResource" : {
-	    "Type" : "AWS::ApiGateway::Resource",
-	    "Properties" : {
-	        "ParentId" : { "Ref": "LinkedAccountsResource" },
-	        "PathPart" : "{username}",
-	        "RestApiId" : { "Ref": "MyBuzzMoneyRestApi" }
-	    }
-	},
-
-
+    
 	"UserGetMethod" : {
 		"DependsOn" : "UserNameResource",
 		"Type" : "AWS::ApiGateway::Method",
@@ -361,24 +342,6 @@
 		}
 	},
 
-	"LinkedAccountsPostMethod" : {
-		"DependsOn" : "UserLinkedAccountsResource",
-		"Type" : "AWS::ApiGateway::Method",
-		"Properties" : {
-			"HttpMethod" : "POST",
-			"ResourceId" : { "Ref": "UserLinkedAccountsResource" },
-			"RestApiId"  : { "Ref": "MyBuzzMoneyRestApi" },
-			"AuthorizationType" : "COGNITO_USER_POOLS",
-			"AuthorizerId" : { "Ref": "CognitoAuthorizer" },
-			"Integration" : {
-				 "Type" : "AWS_PROXY",
-				 "IntegrationHttpMethod" : "POST",
-				 "Uri" : { "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PostUserLinkedAccountAsync.Arn}/invocations"}
-			}
-		}
-	},
-
-
 	"UserSettingOptionMethod" : {
 	    "Type" : "AWS::ApiGateway::Method",
 	    "Properties" : {
@@ -462,50 +425,7 @@
 			]
 	    }
 	},
-
-	"LinkedAccountsSettingOptionMethod" : {
-	    "Type" : "AWS::ApiGateway::Method",
-	    "Properties" : {
-			"AuthorizationType" : "NONE",
-	        "HttpMethod" : "OPTIONS",
-	        "ResourceId" : { "Ref": "UserLinkedAccountsResource" },
-	        "RestApiId"  : { "Ref": "MyBuzzMoneyRestApi" },
-			"Integration" : {
-				"RequestTemplates" : {
-					"application/json": "{\"statusCode\": 200 }"
-				},
-				"IntegrationResponses": [ 
-					{
-						"StatusCode" : 200,
-						"ResponseTemplates" : {
-							"application/json": "{\"statusCode\": 200 }"
-						},
-						"ResponseParameters" : {
-							"method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-							"method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-							"method.response.header.Access-Control-Allow-Origin": "'*'"
-						}
-					}
-				],
-				"Type" : "MOCK"
-			}, 
-			"MethodResponses" : [
-				{
-					"StatusCode" : 200,
-					"ResponseModels" : {
-						"application/json": { "Ref": "EmptyModel" }
-					},
-					"ResponseParameters": {
-						"method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-						"method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
-						"method.response.header.Access-Control-Allow-Origin": "'*'"
-					}
-				}
-			]
-	    }
-	},
-
-
+    
 	"Deployment" : {
 		"DependsOn" : "UserImageOptionMethod",
 	    "Type" : "AWS::ApiGateway::Deployment",
@@ -680,38 +600,6 @@
       }
     },
 
-	"PostUserLinkedAccountAsync" : {
-		"Type" : "AWS::Serverless::Function",
-		"Properties": {
-			"Handler": "MyBuzzMoney.Serverless::MyBuzzMoney.Serverless.SettingFunctions::PostUserLinkedAccountAsync",
-			"Runtime": "dotnetcore2.0",
-			"CodeUri": "",
-			"MemorySize": 128,
-			"Timeout": 30,
-			"Role": "arn:aws:iam::678822529170:role/MyBuzzMoney_Lambda_Execution_Role",
-			"Policies": [ "AWSLambdaBasicExecutionRole" ],
-			"FunctionName" : "MyBuzzMoney-PostUserLinkedAccount",
-			"Environment" : {
-				"Variables" : {
-					"accessKey": {"Ref" : "AccessKey"},
-					"secretKey": {"Ref" : "SecretKey"},
-					"region": {"Ref" : "Region"},
-					"tableName": {"Ref" : "SettingTableName"}
-				}
-		},
-        "Events": {
-          "PutResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/user/linked-accounts/{username}",
-              "Method": "POST"
-            }
-          }
-        }
-      }
-    },
-
-
 	"InvokeGetUserPermission" : {
 		"DependsOn" : "GetUserAsync",
 	    "Type" : "AWS::Lambda::Permission",
@@ -781,21 +669,6 @@
 	        "FunctionName" : {
 				"Fn::GetAtt": [
 					"PostUserPreferencesAsync",
-					"Arn"
-				]
-			},
-	        "Principal"    : "apigateway.amazonaws.com"
-	    }
-	},
-
-	"InvokePostLinkedAccountPermission" : {
-		"DependsOn" : "PostUserLinkedAccountAsync",
-	    "Type" : "AWS::Lambda::Permission",
-	    "Properties" : {
-	        "Action" : "lambda:InvokeFunction",
-	        "FunctionName" : {
-				"Fn::GetAtt": [
-					"PostUserLinkedAccountAsync",
 					"Arn"
 				]
 			},

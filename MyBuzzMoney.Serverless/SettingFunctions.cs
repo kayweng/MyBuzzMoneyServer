@@ -121,52 +121,6 @@ namespace MyBuzzMoney.Serverless
                 StatusCode = (int)HttpStatusCode.BadRequest
             };
         }
-
-        public async Task<APIGatewayProxyResponse> PostUserLinkedAccountAsync(APIGatewayProxyRequest request, ILambdaContext context)
-        {
-            string username = null;
-
-            try
-            {
-                if (request.PathParameters.ContainsKey("username"))
-                {
-                    username = request.PathParameters["username"].ToString();
-                }
-
-                if (!string.IsNullOrEmpty(username))
-                {
-                    var repo = new SettingRepository(_tableName);
-                    var setting = JsonConvert.DeserializeObject<UserSetting>(request.Body);
-
-                    bool saved = await repo.UpdateLinkedAccount(setting);
-
-                    if (saved)
-                    {
-                        return new APIGatewayProxyResponse()
-                        {
-                            StatusCode = (int)HttpStatusCode.OK,
-                            Body = JsonConvert.SerializeObject(setting),
-                            Headers = _responseHeader
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                context.Logger.LogLine(ex.Message);
-
-                return new APIGatewayProxyResponse
-                {
-                    StatusCode = (int)HttpStatusCode.InternalServerError,
-                    Body = ex.Message
-                };
-            }
-
-            return new APIGatewayProxyResponse
-            {
-                StatusCode = (int)HttpStatusCode.BadRequest
-            };
-        }
         #endregion
     }
 }

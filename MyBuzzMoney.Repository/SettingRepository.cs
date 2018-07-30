@@ -84,46 +84,5 @@ namespace MyBuzzMoney.Repository
                 throw ex;
             }
         }
-
-        public async Task<bool> UpdateLinkedAccount(UserSetting userSetting)
-        {
-            try
-            {
-                var request = new UpdateItemRequest
-                {
-                    TableName = SettingTableName,
-                    Key = new Dictionary<string, AttributeValue>()
-                    {
-                        { "Email", new AttributeValue { S = userSetting.Email } }
-                    },
-                    ExpressionAttributeNames = new Dictionary<string, string>()
-                    {
-                        {"#LinkedAccounts", "LinkedAccounts"},
-                        {"#ModifiedOn", "ModifiedOn"}
-                    },
-                    ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
-                    {
-                        {":linkedAccounts", new AttributeValue { S = JsonConvert.SerializeObject(userSetting.LinkedAccounts) }},
-                        {":modifiedOn", new AttributeValue { S = userSetting.ModifiedOn }}
-                    },
-
-                    UpdateExpression = "SET #LinkedAccounts = :linkedAccounts, #ModifiedOn = :modifiedOn"
-                };
-
-                return await AWS.DynamoDB.UpdateItemAsync(request).ContinueWith(task =>
-                {
-                    if (task.IsFaulted)
-                    {
-                        Console.WriteLine(task.Exception.Message);
-                    }
-
-                    return !task.IsFaulted;
-                });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
     }
 }

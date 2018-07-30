@@ -11,9 +11,6 @@ namespace MyBuzzMoney.Library.Models
         [JsonProperty("preferences")]
         public string Preferences { get; set; }
 
-        [JsonProperty("linkedAccounts")]
-        public string LinkedAccounts { get; set; }
-
         [JsonProperty("verifications")]
         public string Verifications { get; set; }
 
