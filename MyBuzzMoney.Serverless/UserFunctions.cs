@@ -27,7 +27,7 @@ namespace MyBuzzMoney.Serverless
         private RegionEndpoint _region { get; set; }
         private string _accessKey { get; set; }
         private string _secretKey { get; set; }
-        private string _imageBucketName { get; set; }
+        private string _userImageBucketName { get; set; }
 
         private Dictionary<string, string> _responseHeader { get; set; }
         #endregion
@@ -42,7 +42,7 @@ namespace MyBuzzMoney.Serverless
             _accessKey = Environment.GetEnvironmentVariable("accessKey");
             _secretKey = Environment.GetEnvironmentVariable("secretKey");
             _tableName = Environment.GetEnvironmentVariable("tableName");
-            _imageBucketName = Environment.GetEnvironmentVariable("userImageBucket");
+            _userImageBucketName = Environment.GetEnvironmentVariable("userImageBucket");
             _responseHeader = new Dictionary<string, string>() {
                 { "Content-Type", "application/json" },
                 { "Access-Control-Allow-Origin", "*" }
@@ -172,7 +172,7 @@ namespace MyBuzzMoney.Serverless
                     var file = new TransferUtilityUploadRequest()
                     {
                         InputStream = new MemoryStream(imageBytes),
-                        BucketName = _imageBucketName,
+                        BucketName = _userImageBucketName,
                         Key = username + ".jpg",
                         ContentType = "image/jpeg",
                         CannedACL = Amazon.S3.S3CannedACL.AuthenticatedRead

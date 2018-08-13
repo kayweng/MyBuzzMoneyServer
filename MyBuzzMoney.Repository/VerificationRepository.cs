@@ -1,33 +1,28 @@
-﻿using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.Model;
+﻿using Amazon.DynamoDBv2.Model;
 using MyBuzzMoney.Library.Models;
 using MyBuzzMoney.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AWSSimpleClients.Clients;
-using MyBuzzMoney.Library.Helpers;
-using MyBuzzMoney.Library.Enums;
 using Newtonsoft.Json;
 
 namespace MyBuzzMoney.Repository
 {
-    public class SettingRepository : BaseRepository<UserSetting>, ISettingRepository
+    public class VerificationRepository : BaseRepository<VerificationStatus>, IVerificationRepository
     {
-        public SettingRepository(string tableName) : base(tableName)
+        public VerificationRepository(string tableName) : base(tableName)
         {
-           
+
         }
 
-        public async Task<UserSetting> RetrieveUserSetting(string username)
+        public async Task<VerificationStatus> RetrieveVerificationStatus(string username)
         {
             try
             {
-                var userSetting = await DDBContext.LoadAsync<UserSetting>(username);
-               
-                return userSetting;
+                var verificationStatus = await DDBContext.LoadAsync<VerificationStatus>(username);
+
+                return verificationStatus;
             }
             catch (Exception ex)
             {
@@ -35,7 +30,7 @@ namespace MyBuzzMoney.Repository
             }
         }
 
-        public async Task<bool> UpdatePreferences(UserSetting userSetting)
+        public async Task<bool> UpdateMobileVerification(string username, VerificationProcess process)
         {
             try
             {
@@ -44,20 +39,20 @@ namespace MyBuzzMoney.Repository
                     TableName = DynamoTableName,
                     Key = new Dictionary<string, AttributeValue>()
                     {
-                        { "Email", new AttributeValue { S = userSetting.Email } }
+                        { "Email", new AttributeValue { S = username } }
                     },
                     ExpressionAttributeNames = new Dictionary<string, string>()
                     {
-                        {"#Preferences", "Preferences"},
+                        {"#MobileProcess", "MobileProcess"},
                         {"#ModifiedOn", "ModifiedOn"}
                     },
                     ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
                     {
-                        {":preferences", new AttributeValue { S = userSetting.Preferences.Replace("\\\\","") }},
-                        {":modifiedOn", new AttributeValue { S = userSetting.ModifiedOn }}
+                        {":process", new AttributeValue { S = JsonConvert.SerializeObject(process) }},
+                        {":modifiedOn", new AttributeValue { S = DateTime.UtcNow.ToLongDateString() }}
                     },
 
-                    UpdateExpression = "SET #Preferences = :preferences, #ModifiedOn = :modifiedOn"
+                    UpdateExpression = "SET #MobileProcess = :process, #ModifiedOn = :modifiedOn"
                 };
 
                 return await AWS.DynamoDB.UpdateItemAsync(request).ContinueWith(task =>

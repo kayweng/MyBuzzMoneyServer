@@ -1,18 +1,23 @@
-﻿using MyBuzzMoney.Library.Enums;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace MyBuzzMoney.Library.Models
 {
-    public class UserSetting : BaseModel
+    public class Message
     {
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("preferences")]
-        public string Preferences { get; set; }
+        [JsonProperty("title")]
+        public string Title { get; set; }
 
-        [JsonProperty("verifications")]
-        public string Verifications { get; set; }
+        [JsonProperty("bodyContent")]
+        public string BodyContent { get; set; }
+
+        [JsonProperty("messageType")]
+        public string MessageType { get; set; }
+
+        [JsonProperty("isView")]
+        public bool IsView { get; set; }
 
         [JsonProperty("active")]
         public bool Active { get; set; }

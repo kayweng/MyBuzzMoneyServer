@@ -22,6 +22,8 @@ namespace MyBuzzMoney.UserPostConfirmation
         const string EMPTY_STRING = "-";
         private string _userTableName {get; set; }
         private string _settingTableName { get; set; }
+        private string _verificationTableName { get; set; }
+        private string _inboxTableName { get; set; }
 
         private RegionEndpoint _region { get; set; }
         private string _accessKey { get; set; }
@@ -37,6 +39,8 @@ namespace MyBuzzMoney.UserPostConfirmation
             _secretKey = Environment.GetEnvironmentVariable("secretKey");
             _userTableName = Environment.GetEnvironmentVariable("userTable");
             _settingTableName = Environment.GetEnvironmentVariable("settingTable");
+            _inboxTableName = Environment.GetEnvironmentVariable("inboxTable");
+            _verificationTableName = Environment.GetEnvironmentVariable("verificationTable");
         }
 
         public Function(RegionEndpoint region, string accessKey, string secretKey)
@@ -63,6 +67,22 @@ namespace MyBuzzMoney.UserPostConfirmation
                 CreateUserProfile(model);
 
                 CreateUserSetting(model);
+
+                CreateVerificationStatus(model);
+
+                var welcomeMessage = new Message()
+                {
+                    Email = model.Request.UserAttributes.Email,
+                    Title = string.Format("Welcome, {0}, ", model.Request.UserAttributes.Name),
+                    BodyContent = "Welcome, thank you for signing up my buzz money again. Your email is verified, Please complete the verification processes to be genuine user.",
+                    MessageType = MessageType.Info.ToString(),
+                    IsView = false,
+                    Active = true,
+                    CreatedOn = DateTime.UtcNow.ToLongDateString(),
+                    ModifiedOn = DateTime.UtcNow.ToLongDateString()
+                };
+
+                SendMessage(welcomeMessage);
             }
 
             return model;
@@ -134,7 +154,6 @@ namespace MyBuzzMoney.UserPostConfirmation
                     }
                 };
 
-                List<LinkedAccount> linkedAccount = new List<LinkedAccount>();
                 Verifications verifications = new Verifications()
                 {
                     EmailVerified = attributes.CognitoUser_Status == "CONFIRMED",
@@ -148,7 +167,6 @@ namespace MyBuzzMoney.UserPostConfirmation
                 {
                     ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
                     ["Preferences"] = new AttributeValue() { S = JsonConvert.SerializeObject(preferences) },
-                    ["LinkedAccounts"] = new AttributeValue() { S = JsonConvert.SerializeObject(linkedAccount) },
                     ["Verifications"] = new AttributeValue() { S = JsonConvert.SerializeObject(verifications) },
                     ["Active"] = new AttributeValue() { BOOL = true },
                     ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
@@ -164,6 +182,124 @@ namespace MyBuzzMoney.UserPostConfirmation
                 if (response.HttpStatusCode != System.Net.HttpStatusCode.OK && response.HttpStatusCode != System.Net.HttpStatusCode.Accepted)
                 {
                     throw new Exception(string.Format("Failed to create an user setting - {0}", settingAttributes["Email"].S.ToString()));
+                }
+            }
+            catch (AmazonDynamoDBException exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+            catch (Exception exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+        }
+
+        private void CreateVerificationStatus(CognitoContext model)
+        {
+            try
+            {
+                UserAttributes attributes = model.Request.UserAttributes;
+
+                #region verification entity
+                VerificationStatus verification = new VerificationStatus
+                {
+                    Email = attributes.CognitoEmail_Alias,
+                    EmailProcess = new VerificationProcess
+                    {
+                        Status = VerifiedType.Verified.ToString(),
+                        Reason = "Verified via confirmation email.",
+                        Remark = "-",
+                        Approver = "User",
+                        ProcessDateTime = DateTime.UtcNow.ToLongDateString(),
+                        Active = true
+                    },
+                    IdentityProcess = new VerificationProcess
+                    {
+                        Status = VerifiedType.Pending.ToString(),
+                        Reason = "-",
+                        Remark = "-",
+                        Approver = "-",
+                        ProcessDateTime = "-",
+                        Active = true
+                    },
+                    MobileProcess = new VerificationProcess
+                    {
+                        Status = VerifiedType.Pending.ToString(),
+                        Reason = "-",
+                        Remark = "-",
+                        Approver = "-",
+                        ProcessDateTime = "-",
+                        Active = true
+                    },
+                    AddressProcess = new VerificationProcess
+                    {
+                        Status = VerifiedType.Pending.ToString(),
+                        Reason = "-",
+                        Remark = "-",
+                        Approver = "-",
+                        ProcessDateTime = "-",
+                        Active = true
+                    },
+                };
+                #endregion
+
+                Dictionary<string, AttributeValue> verificationAttribute = new Dictionary<string, AttributeValue>
+                {
+                    ["Email"] = new AttributeValue() { S = attributes.CognitoEmail_Alias },
+                    ["EmailProcess"] = new AttributeValue() { S = JsonConvert.SerializeObject(verification.EmailProcess) },
+                    ["IdentityProcess"] = new AttributeValue() { S = JsonConvert.SerializeObject(verification.IdentityProcess) },
+                    ["MobileProcess"] = new AttributeValue() { S = JsonConvert.SerializeObject(verification.MobileProcess) },
+                    ["AddressProcess"] = new AttributeValue() { S = JsonConvert.SerializeObject(verification.AddressProcess) },
+                    ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
+                    ["ModifiedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() }
+                };
+
+                var response = AWS.DynamoDB.PutItemAsync(new PutItemRequest()
+                {
+                    TableName = _verificationTableName,
+                    Item = verificationAttribute
+                }).GetAwaiter().GetResult();
+
+                if (response.HttpStatusCode != System.Net.HttpStatusCode.OK && response.HttpStatusCode != System.Net.HttpStatusCode.Accepted)
+                {
+                    throw new Exception(string.Format("Failed to create user verification processes - {0}", verificationAttribute["Email"].S.ToString()));
+                }
+            }
+            catch (AmazonDynamoDBException exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+            catch (Exception exception)
+            {
+                Logger.Instance.LogException(exception);
+            }
+        }
+
+        private void SendMessage(Message message)
+        {
+            try
+            {
+                Dictionary<string, AttributeValue> messageAttribute = new Dictionary<string, AttributeValue>
+                {
+                    ["Email"] = new AttributeValue() { S = message.Email },
+                    ["Title"] = new AttributeValue() { S = message.Title },
+                    ["BodyContent"] = new AttributeValue() { S = message.BodyContent },
+                    ["MessageType"] = new AttributeValue() { S = message.MessageType },
+                    ["IsView"] = new AttributeValue() { BOOL = message.IsView },
+                    ["Active"] = new AttributeValue() { BOOL = true },
+                    ["CreatedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() },
+                    ["ModifiedOn"] = new AttributeValue() { S = DateTime.UtcNow.ToLongDateString() }
+                };
+
+                var response = AWS.DynamoDB.PutItemAsync(new PutItemRequest()
+                {
+                    TableName = _inboxTableName,
+                    Item = messageAttribute
+                }).GetAwaiter().GetResult();
+
+                if (response.HttpStatusCode != System.Net.HttpStatusCode.OK && response.HttpStatusCode != System.Net.HttpStatusCode.Accepted)
+                {
+                    throw new Exception(string.Format("Failed to create inbox message - {0}", messageAttribute["Email"].S.ToString()));
                 }
             }
             catch (AmazonDynamoDBException exception)

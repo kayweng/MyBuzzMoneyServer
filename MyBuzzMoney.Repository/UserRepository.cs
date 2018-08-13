@@ -14,20 +14,11 @@ using MyBuzzMoney.Library.Enums;
 namespace MyBuzzMoney.Repository
 {
 
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : BaseRepository<UserProfile>, IUserRepository
     {
-        IDynamoDBContext DDBContext { get; set; }
-        string UserTableName { get; set; }
-
-        public UserRepository(string tableName)
+        public UserRepository(string tableName) : base(tableName)
         {
-            var config = new DynamoDBContextConfig { Conversion = DynamoDBEntryConversion.V2 };
 
-            AWSConfigsDynamoDB.Context.TypeMappings[typeof(UserProfile)] = new Amazon.Util.TypeMapping(typeof(UserProfile), tableName);
-
-            DDBContext = new DynamoDBContext(new AmazonDynamoDBClient(), config);
-
-            UserTableName = tableName;
         }
 
         public async Task<UserProfile> RetrieveUser(string username)
@@ -51,7 +42,7 @@ namespace MyBuzzMoney.Repository
             {
                 var request = new UpdateItemRequest
                 {
-                    TableName = UserTableName,
+                    TableName = DynamoTableName,
                     Key = new Dictionary<string, AttributeValue>() 
                     {
                         { "Email", new AttributeValue { S = userProfile.Email } } 

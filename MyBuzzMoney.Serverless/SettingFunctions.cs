@@ -35,6 +35,7 @@ namespace MyBuzzMoney.Serverless
             _accessKey = Environment.GetEnvironmentVariable("accessKey");
             _secretKey = Environment.GetEnvironmentVariable("secretKey");
             _tableName = Environment.GetEnvironmentVariable("tableName");
+           
             _responseHeader = new Dictionary<string, string>() {
                 { "Content-Type", "application/json" },
                 { "Access-Control-Allow-Origin", "*" }
